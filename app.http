@@ -1,14 +1,14 @@
 //Users
 
 ###
-GET http://localhost:3000/users/users
+GET http://localhost:4000/users/users
 
 ###
 GET http://localhost:3000/users/users/1
 
 
 ###
-DELETE http://localhost:3000/users/users/2
+DELETE http://localhost:4000/users/users/4
 
 ###
 POST http://localhost:3000/users/users
@@ -38,6 +38,21 @@ PUT http://localhost:3000/users/users
   "created_at": "2024-02-01",
   "updated_at": "2024-04-01"
 }
+### Login to user
+POST http://localhost:4000/users/login
+Content-Type: application/json 
+
+{
+  "email": "cyruskimtai@gmail.com",
+  "password": "@cyrusKim"
+  
+}
+
+###
+
+
+
+
 
 
 

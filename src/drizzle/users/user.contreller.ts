@@ -1,5 +1,7 @@
 import { Context } from "hono";
-import { CreateUser, DeleteUser, fetchOneUsers, getAllUsers, UpdateUser } from "./user.service";
+import { CreateUser, DeleteUser, fetchOneUsers, getAllUsers, loginUser, UpdateUser } from "./user.service";
+import * as bcrypt from 'bcrypt';
+
 
 //fetch all users
 export const getAllUsersData = async (c: Context) => {
@@ -21,16 +23,38 @@ export const getOneUsersData = async (c: Context) => {
 }
 
 //create user
-export const createUsersData = async (c: Context, next: Function) => {
+export const createUsersData = async (c: Context) => {
     
     try{
        const user = await c.req.json()
+       const password = user.password
+      const hashedPassword = await bcrypt.hash(password, 10)
+        user.password = hashedPassword 
     const response = await CreateUser(user)
     return c.json({message: response},201)
-    } catch(err){
-        return c.json({message: err},500)
+    } catch(error: any){
+        return c.json({message: error?.message},500)
     }
 }
+
+// log-in user
+export const loginUserData = async (c: Context) => {
+       const details = await c.req.json()
+       console.log(details)
+    const user = await loginUser(details)
+    if(user === null){
+        return c.json({message: "No user found"},404)
+    }
+    const userMatch = await bcrypt.compare(details.password, user?.password !)
+    console.log(user?.password, details.password, userMatch)
+    if(userMatch){
+        return c.json(user,200)
+    }else {
+        return c.json({message: "Invalid details"},401)
+    }
+}
+
+
 
 //update user
 export const updateUsersData = async (c: Context) => {

@@ -6,6 +6,12 @@ export const   cretaeAuthUserService = async (user: AuthOneUserInsert): Promise<
     await db.insert(AuthOneUsersTable).values(user)
     return "User created successfully";
 }
+
+
+
+
+
+
 // export const userLoginService = async (user: AuthOneUserInsert) => {
 //     const { username, password } = user;
 //     return await db.query.AuthOneUsersTable.findFirst({
