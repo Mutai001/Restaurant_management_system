@@ -23,10 +23,11 @@ export const CreateComments = async (comments: commentsinsert) => {
 }
 
 // update comments
-export const UpdateComments = async () => {
- 
-}
+export const UpdateComments = async (id:number,comments:commentsinsert) => {
+    await db.update(commentsTable).set(comments).where(eq(commentsTable.id,id));
+    return "Address updated successfully"
 
+}
 // delete Comments
 export const DeleteComments = async (id: number) => {
     await db.delete(commentsTable).where(eq(commentsTable.id, id))

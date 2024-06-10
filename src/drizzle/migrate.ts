@@ -1,15 +1,18 @@
 import "dotenv/config";
-// import { migrate } from "drizzle-orm/node-postgres/migrator";
-import {migrate} from "drizzle-orm/neon-http/migrator"
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Client } from "pg";
+import * as schema from "./schema"
 
-import db, { client } from "./db";
-
-async function migration() {
-    await migrate(db, { migrationsFolder: __dirname + "/migrations" })
-    await client.end()
-}
-
-migration().catch((err) => {
-    console.error(err)
-    process.exit(0)
+export const client = new Client({
+    connectionString: process.env.Database_URL as string,   //get the database url from the environment
 })
+
+const main = async () => {
+    await client.connect();  //connect to the database
+}
+main();
+
+
+ const db = drizzle(client, { schema, logger: true })  //create a drizzle instance
+
+export default db;  //export the drizzle instancea

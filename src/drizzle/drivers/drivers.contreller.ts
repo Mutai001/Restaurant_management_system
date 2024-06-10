@@ -34,9 +34,18 @@ export const createDriverData = async (c: Context, next: Function) => {
 
 //update driver
 export const updateDriverData = async (c: Context) => {
-   
-}
+    // try {
+    //     const id = parseInt(c.req.param('id'), 10);
+    //     if (isNaN(id)) return c.text('Invalid id', 400);
+    //     const driver = await c.req.json();
+    //     const Driver = await UpdateDriver(id,driver);
 
+    //     if (!UpdateDriver) return c.text('Driver not updated', 400);
+    //     return c.json({ msg: UpdateDriver }, 200);
+    // } catch (error: any) {
+    //     return c.json({ error: error?.message }, 400);
+    // }
+}
 //delete driver
 export const deleteDriverData = async (c: Context) => {
     const id = c.req.param("id")   

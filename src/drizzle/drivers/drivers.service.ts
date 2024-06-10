@@ -24,7 +24,8 @@ export const CreateDriver = async (driver: driversinsert) => {
 
 // update driver
 export const UpdateDriver = async () => {
- 
+//  await db.update(driversTable).set(driver).where(eq(driversTable.id,id));
+//     return "Drivers updated successfully"
 }
 
 // delete driver
